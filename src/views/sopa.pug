@@ -1,0 +1,7 @@
+extends base.pug
+include mixins/fur.pug
+
+block content
+    if fur
+        each item in fur 
+            +fur(item)
