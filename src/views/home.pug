@@ -1,7 +1,14 @@
 extends base.pug
-include mixins/notice.pug
+include mixins/rank.pug
 
 block content
-    if notice
-        each item in notice
-            +notice(item)
+    li
+        a(href="/rank/search") search
+        emsp 
+        a(href="/rank/upload") Upload
+        esmp
+    br
+    if rank 
+        each item in rank
+            +rank(item)
+    script(src="/client/js/filter.js")

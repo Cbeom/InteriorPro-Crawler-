@@ -56,3 +56,11 @@ method:get /interior/create -> create interior
 
 <!— api —>
 <!— commit —>
+
+
+<!- rank ->
+/rank/upload
+/rank/:id
+/rank/:id/edit
+/rank/:id/delete
+

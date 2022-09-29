@@ -1,7 +1,8 @@
 import express from "express";
 import multer from "multer";
-const upload=multer({dest:"uploads/"});
+const noticeupload=multer({dest:"uploads/"});
 import {
+  search,
   getUpload,
   postUpload,
   see,
@@ -17,9 +18,10 @@ import {
 } from "../controllers/noticeController";
 const noticeRouter = express.Router();
 
-noticeRouter.route("/upload").get(getUpload).post(upload.single("avatar"),postUpload);
+noticeRouter.get("/search", search);
+noticeRouter.route("/upload").get(getUpload).post(noticeupload.single("avatar"),postUpload);
 noticeRouter.get("/:id([a-z\\d+]{24})", see);
-noticeRouter.route("/:id([a-z\\d+]{24})/edit").get(getEdit).post(upload.single("avatar"),postEdit);
+noticeRouter.route("/:id([a-z\\d+]{24})/edit").get(getEdit).post(noticeupload.single("avatar"),postEdit);
 noticeRouter.get("/:id([a-z\\d+]{24})/delete", deleteNotice);
 noticeRouter.route("/:id([a-z\\d+]{24})/report").get(getReport).post(postReport);
 noticeRouter.route("/:id([a-z\\d+]{24})").get(getComment).post(postComment);

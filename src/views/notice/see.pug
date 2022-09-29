@@ -1,4 +1,4 @@
-extends base
+extends ../base
 
 block content
     p=notice.description
@@ -17,6 +17,7 @@ block content
     a(href=`${notice.id}/report`) report notice &rarr;
     hr
     //- 댓글기능
+    
     -for(let i=0;i<notice.comment.parentid;i++)
         p=notice.comment[i].parentid
         p=notice.comment[i].parentcomment

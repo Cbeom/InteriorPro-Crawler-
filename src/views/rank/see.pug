@@ -1,0 +1,19 @@
+extends ../base
+
+block content
+    p=rank.description
+    small=rank.user
+    if rank.image
+        img(src="/"+rank.image, width="100",height="100")
+    br
+    small(name="like") likes : #{rank.meta.rating}
+    br
+    small views : #{rank.meta.views}
+    br
+    hr
+    a(href=`${rank.id}/edit`) Edit rank &rarr;
+    br
+    a(href=`${rank.id}/delete`) Delte rank &rarr;
+    br
+    a(href=`${rank.id}/report`) report rank &rarr;
+    hr

@@ -9,11 +9,11 @@ html
                 ul
                     li
                         a(href="/") home
-                    li
-                        a(href="/search") search
-                    li
-                        a(href="/notice/upload") Upload Notice
+                    li 
+                        a(href="/notice") notice
                     li
                         a(href="/crawler/fur") fur
             h1=pageTitle
             block content
+    block script
+        script(src="../../client/js/rank.js")

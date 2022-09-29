@@ -1,0 +1,19 @@
+mixin rank(item)
+    a(href=`/rank/${item.id}`)=item.title
+    ul
+        li
+            span=item.description
+        li
+            small=item.createAt
+        li 
+            span=item.image 
+        li
+            span #{item.meta.rating} like
+        li
+            span #{item.meta.view >0 ? `${item.meta.views} views`: `${item.meta.views} view`}
+        li  
+            span #{item.report.rcount} report
+        button.likebtn like
+        hr
+    block script 
+        script(src="../../client/js/rank.js") 

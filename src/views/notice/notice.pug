@@ -1,0 +1,11 @@
+extends ../base
+include ../mixins/notice.pug
+
+block content
+    li
+        a(href="/notice/search") search
+        emsp
+        a(href="/notice/upload") Upload Notice
+    if notice
+        each item in notice
+            +notice(item)

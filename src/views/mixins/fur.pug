@@ -1,8 +1,9 @@
 mixin fur(item)
-    a(href=`/crawler/${item.id}`)=item.title
     ul
+        li
+            span=item.title
         li
             span=item.price
         li 
-            span=item.image 
+            img(src="/"+item.img)
         hr

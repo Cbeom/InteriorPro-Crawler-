@@ -1,14 +1,14 @@
 import Notice from "../models/notice";
 
 //globalRouter 
-export const home= async (req,res)=>{
+export const notice= async (req,res)=>{
     const notice=await Notice.find().sort({"meta.views":"desc"});
-    return res.render("home",{pageTitle:"Home",notice}); //home.pug에 응답, notice를 보낸다.
+    return res.render("notice/notice",{pageTitle:"Notice",notice}); //home.pug에 응답, notice를 보낸다.
 };
 //검색기능
 export const search= async (req,res)=>{
     const {
-        query:{title},
+        query:{ title },
     }=req;
     let notice=[];
     if(title){
@@ -18,12 +18,12 @@ export const search= async (req,res)=>{
             },
         })
     }
-    return res.render("search",{pageTitle:"Search Title",notice});
+    return res.render("notice/search",{pageTitle:"Search Title",notice});
 };
 
 //Notice Router
 export const getUpload=async (req,res)=>{
-    return res.render("upload",{pageTitle:'Upload Notice'});
+    return res.render("notice/upload",{pageTitle:'Upload Notice'});
 };
 
 export const postUpload=async (req,res)=>{
@@ -46,7 +46,7 @@ export const postUpload=async (req,res)=>{
             description:content,
         });
     }
-    return res.redirect("/");
+    return res.redirect("/notice");
 };
 
 export const see=async (req,res)=>{
@@ -60,7 +60,7 @@ export const see=async (req,res)=>{
                 views:notice.meta.views+1,
             },
         });
-        return res.render("see",{pageTitle:`${notice.title}`,notice});
+        return res.render("notice/see",{pageTitle:`${notice.title}`,notice});
     } catch(error){
         console.log(error);
     }
@@ -71,7 +71,7 @@ export const getEdit=async (req,res)=>{
         params:{id},
     }=req;
     const notice=await Notice.findById(id);
-    return res.render("edit", { pageTitle: `Edit : ${notice.title}`, notice });
+    return res.render("notice/edit", { pageTitle: `Edit : ${notice.title}`, notice });
 }
 
 export const postEdit=async (req,res)=>{
@@ -82,7 +82,7 @@ export const postEdit=async (req,res)=>{
     }=req;
     const exists=await Notice.exists({_id:id});
     if(!exists){
-        return res.redirect("/");
+        return res.redirect("/notice");
     }
     if(file){
         await Notice.findByIdAndUpdate(id,{
@@ -96,7 +96,7 @@ export const postEdit=async (req,res)=>{
             description:content,
         });
     }
-    return res.redirect("/");
+    return res.redirect("/notice");
 };
 
 export const deleteNotice=async (req,res)=>{
@@ -104,7 +104,7 @@ export const deleteNotice=async (req,res)=>{
         params:{id},
     }=req;
     await Notice.findByIdAndDelete(id);
-    return res.redirect("/");
+    return res.redirect("/notice");
 };
 
 export const getReport=async(req,res)=>{
@@ -112,7 +112,7 @@ export const getReport=async(req,res)=>{
         params:{id},
     }=req;
     const notice=await Notice.findById(id);
-    return res.render("report",{ pageTitle: `Report Notice`, notice });
+    return res.render("notice/report",{ pageTitle: `Report Notice`, notice });
 };
 //신고기능 보완 필요
 export const postReport=async(req,res)=>{
@@ -130,9 +130,9 @@ export const postReport=async(req,res)=>{
     },{new:true});
     if(notice.report.rcount>0){
         await Notice.findByIdAndDelete(id);
-        return res.redirect("/");
+        return res.redirect("/notice");
     }
-    return res.redirect("/");
+    return res.redirect("/notice");
 }
 //댓글기능
 export const getComment=async(req,res)=>{
@@ -140,7 +140,7 @@ export const getComment=async(req,res)=>{
         params:{id},
     }=req;
     const notice=await Notice.findById(id);
-    return res.render("see",{ pageTitle: `see Notice`, notice });
+    return res.render("notice/see",{ pageTitle: `see Notice`, notice });
 };
 
 export const postComment=async(req,res)=>{
@@ -155,6 +155,6 @@ export const postComment=async(req,res)=>{
         childid,
         childcomment,
     },{new:true});
-    console.log(parentid,childid);
-    return res.render("see",{ pageTitle: `see Notice`, notice });
+   console.log(parentid,parentcomment);
+    return res.render("notice/see",{ pageTitle: `see Notice`, notice });
 }
